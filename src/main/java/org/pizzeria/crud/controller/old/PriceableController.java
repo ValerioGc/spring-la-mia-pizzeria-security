@@ -1,4 +1,4 @@
-package org.pizzeria.crud.controller;
+package org.pizzeria.crud.controller.old;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-@Controller	
-@RequestMapping("/priceable")
+//@Controller	
+@RequestMapping
 public class PriceableController {
 	
 	@Autowired
@@ -25,7 +25,7 @@ public class PriceableController {
 	private PizzaService pizzaService;
 
 
-	@GetMapping
+	@GetMapping("/priceable")
 	public String getPriceable(Model model) {
 	
 		List<PriceableInt> elementsPriceables = new LinkedList<>();

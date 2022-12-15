@@ -1,4 +1,4 @@
-package org.pizzeria.crud.controller;
+package org.pizzeria.crud.controller.old;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 
-@Controller
+//@Controller
 @RequestMapping("/ingredients")
 public class IngredientController {
 	

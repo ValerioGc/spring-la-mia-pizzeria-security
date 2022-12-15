@@ -22,7 +22,7 @@
 						<th:block th:replace="fragments :: mainTitle(${routeName})"></th:block>  
 				
 						<!-- Create new element -->
-						<form th:action="'/' + ${objN} + '/admin/store'"
+						<form th:action="'/admin/' + ${objN} + '/store'"
 								method="POST"
 								class=" py-3 d-flex vertical-align-middle justify-content-between">
 							
@@ -120,10 +120,10 @@
 									
 									<!-- Buttons -->	
 									<td style="width:10%">
-										<a th:href="@{'/' + ${objN} + '/admin/edit/{id}' (id=${el.id})}" class="btn btn-success">Modifica</a>
+										<a th:href="@{'/admin/' + ${objN} + '/edit/{id}' (id=${el.id})}" class="btn btn-success">Modifica</a>
 									</td>
 									<td  style="width:10%">
-										<a th:href="@{'/' + ${objN} + '/admin/delete/{id}' (id=${el.id})}" class="btn btn-danger">Elimina</a>
+										<a th:href="@{'/admin/' + ${objN} + '/delete/{id}' (id=${el.id})}" class="btn btn-danger">Elimina</a>
 									</td>
 								</tr>
 							</tbody>

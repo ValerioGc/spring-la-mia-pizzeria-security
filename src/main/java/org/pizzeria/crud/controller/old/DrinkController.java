@@ -1,4 +1,4 @@
-package org.pizzeria.crud.controller;
+package org.pizzeria.crud.controller.old;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 
-@Controller
+// @Controller
 @RequestMapping("/drink")
 public class DrinkController {
 
@@ -149,7 +149,7 @@ public class DrinkController {
 	
 //  Search ----------------------------------------------------------------
 	@GetMapping("/search")
-	public String getSearchPizzaByName(Model model, 
+	public String getSearchDrinkByName(Model model, 
 										@RequestParam(name = "query", required = false) 
 										String query) {
 		
