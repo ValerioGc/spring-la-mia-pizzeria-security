@@ -51,6 +51,9 @@ public class MainController {
 		return "SRCtemplates/commonSearch";
  	}
 	
+	
+//  Test Auth ------------------------------------------------------------------
+	
 	@GetMapping("/home")
 	public String getHome() {
 		return "testAdmin/home";
