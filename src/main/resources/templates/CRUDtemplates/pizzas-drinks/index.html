@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<th:block th:replace="fragments :: headMain(${routeName})"></th:block>
+	
+	<body>
+		<div class="main-container container-fluid bg-light" >
+		
+			<!-- Header --> 
+			<th:block th:replace="fragments :: header()"></th:block>
+	
+			<div th:if="${!obj.isEmpty()}" class="container-app px-5 py-3 row justify-content-center align-items-stretch flex-nowrap" >
+				
+				<!-- Aside NavBar --> 
+				<th:block th:replace="fragments :: asideNav(${routeName})"></th:block>
+				
+				<main class="col-9">
+				
+					<!--  main title -->
+					<th:block th:replace="fragments :: mainTitle(${routeName})"></th:block>  
+					
+					<!-- Validation msg -->
+					<th:block th:replace="fragments :: successMsg(${successMsg})"></th:block>
+
+					<!-- Table -->
+					<th:block th:replace="fragments :: table(${obj}, ${objN}, 'display', ${typeRel})"></th:block>
+				
+				</main>	
+			</div>		
+			
+			<h2 th:if="${obj.isEmpty()}">Nessuna prodotto presente</h2>
+		</div>
+					
+		<!-- Scripts -->
+		<script th:src="@{/js/main.js}"></script>	
+		<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+	</body>
+</html>

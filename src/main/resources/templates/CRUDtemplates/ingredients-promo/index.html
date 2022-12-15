@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<th:block th:replace="fragments :: headMain(${routeName})"></th:block>
+	
+	<body>
+		<div class="main-container container-fluid bg-light" >
+		
+			<!-- Header --> 
+			<th:block th:replace="fragments :: header()"></th:block>
+			
+	
+			<div class="container-app px-5 py-3 row justify-content-center align-items-stretch flex-nowrap" >
+				
+				<!-- Aside NavBar --> 
+				<th:block th:replace="fragments :: asideNav(${routeName})"></th:block>
+				
+				<main class="col-9">
+					<div th:if="${!obj.isEmpty()}" >
+				
+						<!--  main title -->
+						<th:block th:replace="fragments :: mainTitle(${routeName})"></th:block>  
+				
+						<!-- Create new element -->
+						<form th:action="'/' + ${objN} + '/store'"
+								method="POST"
+								class=" py-3 d-flex vertical-align-middle justify-content-between">
+							
+							<div class="mx-3 w-50 text-center" th:object="${objS}">
+								<h4 class="fw-bold d-block" 
+									th:text="${routeName} == 'Ingrediente'?'Crea un nuovo ingrediente':'Crea una nuova promo'"></h4>
+								
+								<div th:class="'d-flex align-items-stretch my-5' + ${routeName.equals('promozioni')}? ' justify-content-between':' justify-content-center text-center '">
+									
+									<!-- Nome -->
+									<div>
+										<label class="fw-bold d-block my-2"
+											   th:text="${routeName} == 'Ingrediente'?'Inserisci il nome dell ingrediente ingrediente:':'Inserici il nome della promo:'"></label>
+										<input th:class="${routeName.equals('promozioni')}? '':' m-auto'"
+												type="text" name="name" 
+												placeholder="Inserisci il nome" 
+												class="p-1 my-3 d-block" />
+												
+										<!-- Bottone -->								
+										<input type="submit" value="Crea" class="btn btn-primary mx-3"/>
+									</div>
+									
+									<!-- Date -->
+									<div th:if="${routeName} == 'promozioni'" class="text-start w-50"> 
+										<div>
+											<label class="d-block fw-bold">Inizio della promozione:</label>
+											<input class="w-100" type="date" name="startDate" th:field="*{startDate}"/>
+										</div>
+										
+										<div>
+											<label class="d-block fw-bold">Termine della promozione:</label>
+											<input class="w-100" type="date" name="endDate" th:field="*{endDate}"/>
+										</div>
+									</div>
+
+									
+								</div>
+								
+								
+
+								
+							</div>
+							
+							<div class="mx-5" style="width:30%;" th:object="${objS}">
+							
+								<label class="d-block my-3 fw-bold">Seleziona le pizze a da associare:</label>				
+								<hr/>
+								
+								<div th:each="pizza : ${pizzas}"  
+										th:object="${pizza}"
+										class="d-inline-block text-center mx-2 my-2">
+			
+									<!-- Pizze -->
+									<div>
+										<input type="checkbox" name="pizzas"
+												th:value="*{id}"
+												th:field="${objS.pizzas}">
+										
+										<label class="fw-bold d-inline-block">[[${pizza.name}]]</label>
+									</div>
+									
+								</div>
+							</div>
+						</form>		
+							
+						<!-- error message -->
+						<th:block th:replace="fragments :: errorMsg(${errors})"></th:block>
+				
+						<!-- Validation msg -->
+						<th:block th:replace="fragments :: successMsg(${successMsg})"></th:block>
+		
+						<!-- Promotions -->
+						<table class="py-3 table table-dark table-striped text-start">
+							<thead>
+								<tr style="position:sticky;top:0;width:100%;border-bottom:1px solid #fff;transition:all 0.5s linear;">
+									<th>Nome</th>
+									<th th:if="${routeName.equals('promozioni')}">Data inizio</th>
+									<th th:if="${routeName.equals('promozioni')}">Data fine</th>
+									<th>Pizze Associate</th>
+									<th colspan="2" class="text-center">Azioni:</th>
+								</tr>
+							</thead>
+							<tbody>		
+								<tr th:each="el : ${obj}" th:object="${el}">	
+									<td class="text-capitalize" th:text="*{name}"></td>
+									<td th:if="${routeName.equals('promozioni')}" th:text="*{startDate}"></td>
+									<td th:if="${routeName.equals('promozioni')}" th:text="*{endDate}"></td>
+									
+									<!-- Pizze -->
+									<td class="text-capitalize" >
+										<ul class="list-unstyled">
+											<li th:each="pizza : ${el.getPizzas()}" th:text="${pizza.name} + ','"/> <li>
+										</ul>
+									</td>
+									
+									<!-- Buttons -->	
+									<td style="width:10%">
+										<a th:href="@{'/' + ${objN} + '/edit/{id}' (id=${el.id})}" class="btn btn-success">Modifica</a>
+									</td>
+									<td  style="width:10%">
+										<a th:href="@{'/' + ${objN} + '/delete/{id}' (id=${el.id})}" class="btn btn-danger">Elimina</a>
+									</td>
+								</tr>
+							</tbody>
+						</table> 
+					</div>
+				
+					<h2 th:if="${obj.isEmpty()}">Nessuna promozione presente</h2>
+				
+				</main>	
+			</div>					
+		</div>
+					
+		<!-- Scripts -->
+		<script th:src="@{/js/main.js}"></script>	
+		<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+	</body>
+</html>

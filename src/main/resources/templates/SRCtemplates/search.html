@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<th:block th:replace="fragments :: headMain('Ricerca')"></th:block>
+
+	<body>
+		<div class="container-fluid main-container bg-light">
+
+			<!-- Header --> 
+			<th:block th:replace="fragments :: header()"></th:block>
+
+			<div class="container-app px-5 py-3 row justify-content-center align-items-stretch flex-nowrap w-100">
+			
+				<!-- Aside NavBar --> 
+				<th:block th:replace="fragments :: asideNav(${routeName})"></th:block>
+				
+				<main class="col-9">
+					
+					<!--  main title -->
+					<th:block th:replace="fragments :: mainTitle('Ricerca ' + ${element})"></th:block>  
+
+					<!-- Search -->
+					<div class="px-3">
+						<th:block th:replace="fragments :: srcBar(${query})"></th:block>  
+					</div>
+
+					<!-- Results -->
+					<div class="px-5">
+						<!-- Messages -->		
+						<h3 th:if="${#strings.isEmpty(query)}" class=" pt-2 pb-3 text-center text-danger">Usa la barra di ricerca per visualizzare i risultati </h3>
+
+						<h3 th:if="${obj.isEmpty()}" class="pt-2 pb-3 text-center text-danger">Nessun risultato</h3>
+
+						<!--  Index Table  -->	
+						<th:block th:if="${!#strings.isEmpty(query)} AND ${!obj.isEmpty()}"  
+								  th:insert="fragments :: table(${obj}, ${routeName}, 'src', ${typeRel})"></th:block>
+								  
+					</div>			
+				</main>
+			</div>		
+		</div>
+					
+		<!-- Scripts -->
+		<script th:src="@{/js/main.js}"></script>	
+		<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+	</body>
+</html>

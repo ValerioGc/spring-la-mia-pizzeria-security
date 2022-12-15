@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ 
+	<th:block th:replace="fragments :: headMain('Home Pizzeria Java')"></th:block>
+ 
+	<body>
+		<div class="container-fluid main-container bg-light">
+
+			<!-- Header --> 
+			<th:block th:replace="fragments :: header()"></th:block>
+
+			<div class="container-app px-5 py-3 row justify-content-center align-items-stretch flex-nowrap">
+			
+				<!-- Aside NavBar --> 
+				<th:block th:replace="fragments :: asideNav(${routeName})"></th:block>
+				
+				<main class="col-9">
+			
+					<!--  main title -->
+					<th:block th:replace="fragments :: mainTitle('Home Pizzeria')"></th:block>  
+
+					<h4 class="m-auto py-5 my-5 text-center">Benvenuto nella homepage della pizzeria</h4>
+			
+				</main>
+			</div>		
+		</div>
+		
+		<!-- Scripts -->
+		<script th:src="@{/js/main.js}"></script>	
+		<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>	
+	</body>
+</html>
