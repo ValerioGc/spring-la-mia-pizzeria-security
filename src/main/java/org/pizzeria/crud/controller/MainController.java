@@ -50,4 +50,24 @@ public class MainController {
 		
 		return "SRCtemplates/commonSearch";
  	}
+	
+	@GetMapping("/home")
+	public String getHome() {
+		return "testAdmin/home";
+	}
+	
+	@GetMapping("/user")
+	public String getUser() {
+		return "testAdmin/user";
+	}
+	
+	@GetMapping("/admin")
+	public String getAdmin() {
+		return "testAdmin/admin";
+	}
+	
+	@GetMapping("/useradmin")
+	public String getUserAdmin() {
+		return "testAdmin/userAdmin";
+	}
 }

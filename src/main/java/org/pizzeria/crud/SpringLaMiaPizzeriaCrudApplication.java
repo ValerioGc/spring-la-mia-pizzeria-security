@@ -5,15 +5,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.pizzeria.crud.pojo.Drink;
 import org.pizzeria.crud.pojo.Ingredient;
 import org.pizzeria.crud.pojo.Pizza;
 import org.pizzeria.crud.pojo.Promotion;
+import org.pizzeria.crud.pojo.Role;
+import org.pizzeria.crud.pojo.User;
 import org.pizzeria.crud.serv.DrinkService;
 import org.pizzeria.crud.serv.IngredientService;
 import org.pizzeria.crud.serv.PizzaService;
 import org.pizzeria.crud.serv.PromotionService;
+import org.pizzeria.crud.serv.RoleService;
+import org.pizzeria.crud.serv.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.CommandLineRunner;
@@ -34,7 +39,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 	@Autowired
 	private IngredientService ingredientService;
 
-	
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private RoleService roleService;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
@@ -189,5 +199,25 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 								+ ingr.getPizzas());
 		}
 		System.out.println("-----------------------------------------------");
+		
+			
+		Role userR = new Role("USER");
+		Role adminR = new Role("ADMIN");
+		
+		roleService.save(userR);
+		roleService.save(adminR);
+		
+		User userUser = new User("user", "{noop}pwd", userR);
+		User adminUser = new User("admin", "{noop}pwd", adminR);
+		
+		Set<Role> userAdminRoles = new HashSet<>();
+		userAdminRoles.add(userR);
+		userAdminRoles.add(adminR);
+		
+		User userAdminUser = new User("userAdmin", "{noop}pwd", userAdminRoles);
+		userService.save(userUser);
+		userService.save(adminUser);
+		userService.save(userAdminUser);
+		
 	}
 }
