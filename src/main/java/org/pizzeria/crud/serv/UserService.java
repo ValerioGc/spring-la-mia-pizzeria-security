@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.pizzeria.crud.pojo.User;
 import org.pizzeria.crud.repo.UserRepo;
+import org.pizzeria.crud.security.DatabaseUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
