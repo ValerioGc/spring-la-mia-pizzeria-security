@@ -57,7 +57,7 @@ public class IngredientController {
 	
 	
 // Store
-	@PostMapping("/store")
+	@PostMapping("/admin/store")
 	public String storeIngredient(@Valid Ingredient ingredient, 
 									BindingResult bindingResult, 
 									RedirectAttributes redirectAttributes) {
@@ -84,7 +84,7 @@ public class IngredientController {
 	
 
 // Edit
-	@GetMapping("/edit/{id}")
+	@GetMapping("/admin/edit/{id}")
 	public String editIngredient(@PathVariable("id") int id, Model model) {
 		
 		Ingredient ingr = ingredientService.findIngredientById(id);
@@ -101,7 +101,7 @@ public class IngredientController {
 	}
 	
 // Update
-	@PostMapping("/update/{id}")
+	@PostMapping("/admin/update/{id}")
 	public String updateIngredient(@Valid Ingredient ingredient, 
 									@PathVariable("id") int id,
 									BindingResult bindingResult, 
@@ -135,7 +135,7 @@ public class IngredientController {
 	
 	
 // Delete
-	@GetMapping("/delete/{id}")
+	@GetMapping("/admin/delete/{id}")
 	public String deleteingredient(@PathVariable("id") int id) {
 		
 		ingredientService.deleteIngredientById(id);

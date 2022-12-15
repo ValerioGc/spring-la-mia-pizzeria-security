@@ -60,7 +60,7 @@ public class PizzaController {
 	
 	
 //  Show ------------------------------------------------------------------
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public String getPizza(@PathVariable("id") int id, Model model) {
 	
 		List<Ingredient> ingredients = ingredientService.findAll();
@@ -78,7 +78,7 @@ public class PizzaController {
 	
 	
 //  Create ----------------------------------------------------------------
-	@GetMapping("/create")
+	@GetMapping("/admin/create")
 	public String getCreatePizza(Model model) {
 		
 		List<Promotion> promotions = promotionService.findAll(); 
@@ -98,14 +98,14 @@ public class PizzaController {
 	}
 	
 // Store  ----------------------------------------------------------------
-	@PostMapping("/store")
+	@PostMapping("/admin/store")
 	public String storePizza(@Valid Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
 	// --------------------------------- Errors & Msg --------------------------------------	
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/pizza/create";
+			return "redirect:/pizza/admin/create";
 		}
 		redirectAttributes.addFlashAttribute("successMsg", "Creazione avvenuta con successo");
 	
@@ -118,7 +118,7 @@ public class PizzaController {
 	
 	
 // Edit ----------------------------------------------------------------
-	@GetMapping("/edit/{id}")
+	@GetMapping("/admin/edit/{id}")
 	public String editPizza(@PathVariable("id") int id, Model model) {
 		
 		List<Promotion> promotions = promotionService.findAll(); 
@@ -138,14 +138,14 @@ public class PizzaController {
 	}
 	
 //  Update ----------------------------------------------------------------
-	@PostMapping("/update")
+	@PostMapping("/admin/update")
 	public String updatePizza(@Valid Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {		
 
 	// --------------------------------- Errors & Msg --------------------------------------	
 
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/pizza/edit/" + pizza.getId();
+			return "redirect:/pizza/admin/edit/" + pizza.getId();
 		}
 		
 		redirectAttributes.addFlashAttribute("successMsg", "Modifica avvenuta con successo");
@@ -159,7 +159,7 @@ public class PizzaController {
 	
 	
 // Delete ----------------------------------------------------------------
-	@GetMapping("/delete/{id}")
+	@GetMapping("/admin/delete/{id}")
 	public String deletePizza(@PathVariable("id") int id) {
 		
 		pizzaService.deletePizzaById(id);

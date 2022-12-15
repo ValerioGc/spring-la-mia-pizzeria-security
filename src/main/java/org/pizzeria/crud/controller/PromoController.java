@@ -57,7 +57,7 @@ public class PromoController {
 
 	
 // Store 
-	@PostMapping("/store")
+	@PostMapping("/admin/store")
 	public String storePromotion(@Valid Promotion promotion, 
 								BindingResult bindingResult, 
 								RedirectAttributes redirectAttributes) {
@@ -94,7 +94,7 @@ public class PromoController {
 
 
 // Edit
-	@GetMapping("/edit/{id}")
+	@GetMapping("/admin/edit/{id}")
 	public String editPromo(@PathVariable("id") int id, Model model) {
 		
 		Promotion optPromo = promotionService.findPromotionById(id);
@@ -111,7 +111,7 @@ public class PromoController {
 	}
 
 //  Update
-	@PostMapping("/update/{id}")
+	@PostMapping("/admin/update/{id}")
 	public String updatePromo(@Valid Promotion promotion, 
 								@PathVariable("id") int id,
 								BindingResult bindingResult, 
@@ -121,7 +121,7 @@ public class PromoController {
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/promos/update/" + promotion.getId();
+			return "redirect:/promos/admin/update/" + promotion.getId();
 		}
 		
 		redirectAttributes.addFlashAttribute("successMsg", "Modifica effettuata con successo");
@@ -140,7 +140,7 @@ public class PromoController {
 		
 	
 // Delete
-	@GetMapping("/delete/{id}")
+	@GetMapping("/admin/delete/{id}")
 	public String deletePromotion(@PathVariable("id") int id) {
 		
 		promotionService.deletePromotionById(id);

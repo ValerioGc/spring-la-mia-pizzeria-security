@@ -48,7 +48,7 @@ public class DrinkController {
 	
 	
 // Show ----------------------------------------------------------------
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public String getDrink(@PathVariable("id") int id, Model model) {
 		
 		Optional<Drink> optDrink = drinkService.findDrinkById(id);
@@ -63,7 +63,7 @@ public class DrinkController {
 		
 		
 // Create ----------------------------------------------------------------
-	@GetMapping("/create")
+	@GetMapping("/admin/create")
 	public String createDrink(Model model) {
 		
 		List<Promotion> promotions = promotionService.findAll(); 
@@ -79,14 +79,14 @@ public class DrinkController {
 		return "CRUDtemplates/pizzas-drinks/new";
 	}
 //  Store ----------------------------------------------------------------
-	@PostMapping("/store")
+	@PostMapping("/admin/store")
 	public String storeDrink(@Valid Drink drink, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 	// --------------------------------- Errors & Msg --------------------------------------	
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/drink/create";
+			return "redirect:/drink/admin/create";
 		}
 		
 		redirectAttributes.addFlashAttribute("successMsg", "Creazione avvenuta con successo");
@@ -100,7 +100,7 @@ public class DrinkController {
 	
 	
 //  Edit ----------------------------------------------------------------
-	@GetMapping("/edit/{id}")
+	@GetMapping("/admin/edit/{id}")
 	public String editDrink(@PathVariable("id") int id, Model model) {
 		
 		List<Promotion> promotions = promotionService.findAll(); 
@@ -117,14 +117,14 @@ public class DrinkController {
 	}
 
 //  Update  ----------------------------------------------------------------
-	@PostMapping("/update")
+	@PostMapping("/admin/update")
 	public String updateDrink(@Valid Drink drink, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 	// --------------------------------- Errors & Msg --------------------------------------	
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/drink/edit/" + drink.getId();
+			return "redirect:/drink/admin/edit/" + drink.getId();
 		}
 		
 		redirectAttributes.addFlashAttribute("successMsg", "Modifica avvenuta con successo");
@@ -138,7 +138,7 @@ public class DrinkController {
 	
 	
 //  Delete ----------------------------------------------------------------
-	@GetMapping("/delete/{id}")
+	@GetMapping("/admin/delete/{id}")
 	public String deleteDrink(@PathVariable("id") int id) {
 		
 		drinkService.deleteDrinkById(id);

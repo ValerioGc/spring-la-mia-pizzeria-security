@@ -21,17 +21,17 @@ public class SecurityConf {
 				.requestMatchers(HttpMethod.GET, "/user", "/user/**").hasAuthority("USER")
 				.requestMatchers(HttpMethod.POST, "/user", "/user/**").hasAuthority("ADMIN")
 				.requestMatchers("/admin", "/admin/**").hasAuthority("ADMIN")
-				.requestMatchers("/useradmin", "/useradmin/**").hasAnyAuthority("USER", "ADMIN")	
+				.requestMatchers("/user", "/user/**", "/admin", "/admin/**").hasAnyAuthority("USER", "ADMIN")	
 				.requestMatchers("/**").permitAll()
+		//  Form utente
 			.and().formLogin()
-			.and().logout()
-		;
+			.and().logout();
 
 		return http.build();
 	}
 	
 	@Bean
-	public UserDetailsService getuseDetailsService() {
+	public UserDetailsService getuserDetailsService() {
 		return new UserService();
 	}
 	
@@ -44,7 +44,7 @@ public class SecurityConf {
 	public DaoAuthenticationProvider getAuthProvider() {
 		
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setUserDetailsService(getuseDetailsService());
+		provider.setUserDetailsService(getuserDetailsService());
 		provider.setPasswordEncoder(getPasswordEncoder());
 		
 		return provider;
