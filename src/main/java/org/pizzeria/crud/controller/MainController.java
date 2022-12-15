@@ -171,6 +171,7 @@ public class MainController {
 		model.addAttribute("objN", "promos");
 		model.addAttribute("type", "display");
 		model.addAttribute("routeName", "promozioni");
+		
 
 		return "CRUDtemplates/ingredients-promo/index";
 	}
