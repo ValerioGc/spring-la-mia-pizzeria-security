@@ -21,20 +21,20 @@
 
 					<h4 class="m-auto py-5 my-5 text-center">Benvenuto nella homepage della pizzeria</h4>
 			
-					<p class="fw-bold text-center ">Link test Auth</p>
+					<p class="fw-bold text-center ">Link test Autenticazione</p>
 					
 					<ul class="list-group w-25 m-auto text-center">
 						<li class="list-group-item">
 							<a href="/home">Home</a>
 						</li>
 						<li class="list-group-item">	
-							<a href="/user">User</a>
+							<a href="/user">User | user - pwd</a>
 						</li>
 						<li class="list-group-item">	
-							<a href="/admin">Admin</a>
+							<a href="/admin">Admin | admin - pwd2</a>
 						</li>
 						<li class="list-group-item">
-							<a href="/useradmin">UserAdmin</a>
+							<a href="/useradmin">UserAdmin, | userAdmin - pwd3</a>
 						</li>
 					</ul>
 					
@@ -61,10 +61,6 @@
 						<div sec:authorize="hasAuthority('USER')">
 						  Auth come USER
 						</div>
-						<div sec:authorize="hasAuthority('userAdmin')">
-						  Auth come USERADMIN
-						</div>
-
 
 						<div>
 							Utente: <span sec:authentication="name"></span> <br/>
