@@ -201,22 +201,25 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 		System.out.println("-----------------------------------------------");
 		
 			
-		Role userR = new Role("USER");
-		Role adminR = new Role("ADMIN");
-		roleService.save(userR);
-		roleService.save(adminR);
 		
-		User userUser = new User("user", "{noop}pwd", userR);
-		User adminUser = new User("admin", "{noop}pwd", adminR);
 		
-		Set<Role> userAdminRoles = new HashSet<>();
-		userAdminRoles.add(userR);
-		userAdminRoles.add(adminR);
+		Role user = new Role("USER");
+		Role admin = new Role("ADMIN");
+		roleService.save(user);
+		roleService.save(admin);
 		
-		User userAdminUser = new User("userAdmin", "{noop}pwd", userAdminRoles);
+		Set<Role> userAdmin = new HashSet<>();		
+		userAdmin.add(user);
+		userAdmin.add(admin);
+
+		User userUser = new User("user", "{noop}pwd", user);
+		User adminUser = new User("admin", "{noop}pwd2", admin);
+		User usAd = new User("userAdmin", "{noop}pwd3", userAdmin);
+	
 		userService.save(userUser);
 		userService.save(adminUser);
-		userService.save(userAdminUser);
+		userService.save(usAd);
+
 		
 	}
 }

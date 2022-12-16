@@ -47,7 +47,7 @@
 					<li th:class="'list-group-item ' + ${routeName.equals('searchPizza') ? 'active' : ''}">	
 						<a href="/pizza/search" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('searchPizza') ? ' bdy' : ''} "><i class="mx-2 fa-magnifying-glass fa-solid"></i>Cerca Pizza</a>
 					</li>
-					<li sec:authorize="hasRole('ADMIN')"						th:class="'list-group-item ' + ${routeName.equals('newPizza') ? 'active' : ''}">
+					<li sec:authorize="hasAuthority('ADMIN')"						th:class="'list-group-item ' + ${routeName.equals('newPizza') ? 'active' : ''}">
 						
 						<a href="/admin/pizza/create" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('newPizza') ? ' bdy' : ''} "><i class="fa-solid fa-pizza-slice mx-2"></i>Crea una nuova pizza</a>
 					</li>
@@ -67,7 +67,7 @@
 					<li th:class="'list-group-item ' + ${routeName.equals('searchDrink') ? 'active ' : ''}">	
 						<a href="/drink/search" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('searchDrink') ? ' bdy' : ''}"><i class="mx-2 fa-magnifying-glass fa-solid"></i>Cerca Drink</a>
 					</li>
-					<li sec:authorize="hasRole('ADMIN')"						th:class="'list-group-item ' + ${routeName.equals('newDrink') ? 'active' : ''}">
+					<li sec:authorize="hasAuthority('ADMIN')"						th:class="'list-group-item ' + ${routeName.equals('newDrink') ? 'active' : ''}">
 						
 						<a href="/admin/drink/create" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('newDrink') ? ' bdy' : ''} "><i class="fa-solid fa-martini-glass mx-2"></i>Crea un nuovo drink</a>
 					</li>
@@ -82,7 +82,23 @@
 <!------------------- Header pagina ------------------------->
 
 <header th:fragment="header()" class="headerApp">
-	<h1 class="text-primary p-3 title-header">Pizzeria Java</h1>
+	<h1 class="text-primary p-3 title-header d-inline-block w-50">Pizzeria Java</h1>
+
+		
+	<ul class="bg-light list-unstyled -auto d-inline-block text-center w-25 p-2">
+		<li>
+			<a sec:authorize="!isAuthenticated()" href="/login" class="">Login</a>
+			<a sec:authorize="isAuthenticated()" href="/logout" class="">LogOut</a>
+		</li>
+		<li>
+			<span sec:authorize="!isAuthenticated()">utente non autenticato.</span>
+			<span sec:authorize="isAuthenticated()">
+				utente autenticato come 
+				<span sec:authentication="name"></span>
+			</span>
+		</li>
+	</ul>
+
 	<hr/>
 </header>
 			
@@ -144,18 +160,19 @@
 			<!-- Buttons -->
 			<td th:if="${type} == 'display'" sec:authorize="isAuthenticated()">
 					
-				<a  class="btn btn-primary mx-1" sec:authorize="hasRole('USER')"
+				<a  class="btn btn-primary mx-1"
+					sec:authorize="hasAnyAuthority('USER', 'ADMIN')"
  					th:href="@{'/user/' + ${objN} + '/{id}' (id=*{id})}">
  						Dettagli
 				</a> 
 
-				<a sec:authorize="hasRole('ADMIN')" class="btn btn-success mx-1"
+				<a sec:authorize="hasAuthority('ADMIN')" class="btn btn-success mx-1"
 					th:href="@{'/admin/' + ${objN} + '/edit/{id}'(id=*{id})}">
 						Modifica
 				</a>
 		
-				<a sec:authorize="hasRole('ADMIN')" class="btn btn-danger mx-1"
- 					th:href="@{'/admin/' + ${objN} + '/delete/{id}'(id=*{id})}" >
+				<a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger mx-1"
+ 				   th:href="@{'/admin/' + ${objN} + '/delete/{id}'(id=*{id})}" >
  						Elimina
 				</a>
 			</td>
@@ -220,7 +237,7 @@
 	</div>
 	
 	<!-- Buttons -->
-	<span class="m-auto" sec:authorize="hasRole('ADMIN')">
+	<span class="m-auto" sec:authorize="hasAuthority('ADMIN')">
 		<a th:href="@{'/admin/' + ${element} + '/edit/{id}' (id=*{id})}" 
 		   class=" btn-primary btn mx-2">Modifica</a>			
 		   	
@@ -234,7 +251,7 @@
 <!-------------------- Main new-edit Form ------------------------>
 
 
-<form sec:authorize="hasRole('ADMIN')" 
+<form sec:authorize="hasAuthority('ADMIN')" 
 	  th:fragment="formM(obj, promo, ingredients, element, edit)"
       th:action="'/admin/' + ${element} + '/' + ${edit}" 
 	  method="POST" 

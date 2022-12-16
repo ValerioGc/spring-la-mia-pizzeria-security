@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns="http://www.sprinfgramework.org/schema/security">
  
 	<th:block th:replace="fragments :: headMain('Home Pizzeria Java')"></th:block>
  
@@ -46,19 +46,25 @@
 					
 					<div class="my-5 text-center">
 					
-						<div sec:authorize="!isAuthenticated()">
-						  user non autenticato.
+						<div>
+							<div sec:authorize="!isAuthenticated()">
+							  Utente non autenticato
+							</div>
+							<div sec:authorize="isAuthenticated()">
+							  Utente autenticato
+							</div>
 						</div>
 						
-						<div sec:authorize="isAuthenticated()">
-						  user autenticato.
-						</div>
-						<div sec:authorize="hasRole('ADMIN')">
-						   Admin
+						<div sec:authorize="hasAuthority('ADMIN')">
+						  Auth come Admin
 						</div>
 						<div sec:authorize="hasAuthority('USER')">
-						  USER
+						  Auth come USER
 						</div>
+						<div sec:authorize="hasAuthority('userAdmin')">
+						  Auth come USERADMIN
+						</div>
+
 
 						<div>
 							Utente: <span sec:authentication="name"></span> <br/>

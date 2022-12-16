@@ -19,10 +19,10 @@ public class SecurityConf {
 	public SecurityFilterChain getFilterChain(HttpSecurity http) throws Exception {
 		
 		http.authorizeHttpRequests()
-				.requestMatchers(HttpMethod.GET, "/user", "/user/**").hasAuthority("USER")
-				.requestMatchers(HttpMethod.POST, "/user", "/user/**").hasAuthority("ADMIN")
-				.requestMatchers("/admin", "/admin/**").hasAuthority("ADMIN")
-				.requestMatchers("/user", "/user/**", "/admin", "/admin/**").hasAnyAuthority("USER", "ADMIN")	
+				.requestMatchers(HttpMethod.GET, "/*/user", "/user", "/user/**").hasAuthority("USER")
+				.requestMatchers(HttpMethod.POST, "/*/user", "/user", "/user/**").hasAuthority("ADMIN")
+				.requestMatchers("/*/admin", "/admin", "/admin/**").hasAuthority("ADMIN")
+				.requestMatchers("/*/user", "/user", "/user/**", "/admin", "/admin/**").hasAnyAuthority("USER_ADMIN", "ADMIN")	
 				.requestMatchers("/**").permitAll()
 		//  Form utente
 			.and().formLogin()

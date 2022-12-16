@@ -22,7 +22,7 @@
 						<th:block th:replace="fragments :: mainTitle(${routeName})"></th:block>  
 				
 						<!-- Create new element -->
-						<form sec:authorize="hasRole('ADMIN')"
+						<form sec:authorize="hasAuthority('ADMIN')"
 							  th:action="'/admin/' + ${objN} + '/store'"
 							  method="POST"
 							  class=" py-3 d-flex vertical-align-middle justify-content-between">
@@ -103,7 +103,7 @@
 									<th th:if="${routeName.equals('promozioni')}">Data inizio</th>
 									<th th:if="${routeName.equals('promozioni')}">Data fine</th>
 									<th>Pizze Associate</th>
-									<th colspan="2" class="text-center" sec:authorize="hasRole('ADMIN')">Azioni:</th>
+									<th colspan="2" class="text-center" sec:authorize="hasAuthority('ADMIN')">Azioni:</th>
 								</tr>
 							</thead>
 							<tbody>		
@@ -120,10 +120,10 @@
 									</td>
 									
 									<!-- Buttons -->	
-									<td style="width:10%" sec:authorize="hasRole('ADMIN')">
+									<td style="width:10%" sec:authorize="hasAuthority('ADMIN')">
 										<a th:href="@{'/admin/' + ${objN} + '/edit/{id}' (id=${el.id})}" class="btn btn-success">Modifica</a>
 									</td>
-									<td  style="width:10%" sec:authorize="hasRole('ADMIN')">
+									<td  style="width:10%" sec:authorize="hasAuthority('ADMIN')">
 										<a th:href="@{'/admin/' + ${objN} + '/delete/{id}' (id=${el.id})}" class="btn btn-danger">Elimina</a>
 									</td>
 								</tr>
