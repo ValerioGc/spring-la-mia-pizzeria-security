@@ -22,7 +22,7 @@ public class SecurityConf {
 				.requestMatchers(HttpMethod.GET, "/*/user", "/user", "/user/**").hasAuthority("USER")
 				.requestMatchers(HttpMethod.POST, "/*/user", "/user", "/user/**").hasAuthority("ADMIN")
 				.requestMatchers("/*/admin", "/admin", "/admin/**").hasAuthority("ADMIN")
-				.requestMatchers("/*/user", "/user", "/user/**", "/admin", "/admin/**").hasAnyAuthority("USER_ADMIN", "ADMIN")	
+				.requestMatchers("/*/user", "/user", "/user/**", "/admin", "/*/admin", "/admin/**").hasAnyAuthority("USER_ADMIN", "ADMIN")	
 				.requestMatchers("/**").permitAll()
 		//  Form utente
 			.and().formLogin()
