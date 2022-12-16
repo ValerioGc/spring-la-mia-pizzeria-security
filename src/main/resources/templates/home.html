@@ -37,6 +37,38 @@
 							<a href="/useradmin">UserAdmin</a>
 						</li>
 					</ul>
+					
+					
+					
+					
+					
+					<!-- ------------------------ Authorize test ----------------------------- -->
+					
+					<div class="my-5 text-center">
+					
+						<div sec:authorize="!isAuthenticated()">
+						  user non autenticato.
+						</div>
+						
+						<div sec:authorize="isAuthenticated()">
+						  user autenticato.
+						</div>
+						<div sec:authorize="hasRole('ADMIN')">
+						   Admin
+						</div>
+						<div sec:authorize="hasAuthority('USER')">
+						  USER
+						</div>
+
+						<div>
+							Utente: <span sec:authentication="name"></span> <br/>
+						</div>
+						
+					</div>
+												
+				<!-- ------------------------ Authorize test ----------------------------- -->
+					
+						
 				</main>
 			</div>		
 		</div>

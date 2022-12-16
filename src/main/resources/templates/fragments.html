@@ -47,7 +47,8 @@
 					<li th:class="'list-group-item ' + ${routeName.equals('searchPizza') ? 'active' : ''}">	
 						<a href="/pizza/search" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('searchPizza') ? ' bdy' : ''} "><i class="mx-2 fa-magnifying-glass fa-solid"></i>Cerca Pizza</a>
 					</li>
-					<li th:class="'list-group-item ' + ${routeName.equals('newPizza') ? 'active' : ''}">
+					<li sec:authorize="hasRole('ADMIN')"						th:class="'list-group-item ' + ${routeName.equals('newPizza') ? 'active' : ''}">
+						
 						<a href="/admin/pizza/create" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('newPizza') ? ' bdy' : ''} "><i class="fa-solid fa-pizza-slice mx-2"></i>Crea una nuova pizza</a>
 					</li>
 				
@@ -66,7 +67,8 @@
 					<li th:class="'list-group-item ' + ${routeName.equals('searchDrink') ? 'active ' : ''}">	
 						<a href="/drink/search" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('searchDrink') ? ' bdy' : ''}"><i class="mx-2 fa-magnifying-glass fa-solid"></i>Cerca Drink</a>
 					</li>
-					<li th:class="'list-group-item ' + ${routeName.equals('newDrink') ? 'active' : ''}">
+					<li sec:authorize="hasRole('ADMIN')"						th:class="'list-group-item ' + ${routeName.equals('newDrink') ? 'active' : ''}">
+						
 						<a href="/admin/drink/create" th:class="'d-inline-block w-100 text-decoration-none' + ${routeName.equals('newDrink') ? ' bdy' : ''} "><i class="fa-solid fa-martini-glass mx-2"></i>Crea un nuovo drink</a>
 					</li>
 				</ul>	
@@ -109,7 +111,9 @@
 			<th style="width:10%" colspan="1">Ingredienti</th>
 			
 			<th style="width:10%" colspan="1" class="text-start">Prezzo</th>
-			<th style="width:30%"  class="text-center" th:if="${type} == 'display'">Azioni:</th>
+			<th style="width:30%" class="text-center"
+				sec:authorize="isAuthenticated()" 
+				th:if="${type} == 'display'">Azioni:</th>
 		</tr>
 	</thead>
 	<tbody>		
@@ -138,13 +142,22 @@
 			<td style="width:10%"  th:text="*{price} +  ' &euro;'"></td>
 			
 			<!-- Buttons -->
-			<td th:if="${type} == 'display'">
+			<td th:if="${type} == 'display'" sec:authorize="isAuthenticated()">
 					
-				<a class="btn btn-primary mx-1" th:href="@{'/user/' + ${objN} + '/{id}' (id=*{id})}">Dettagli</a> 
+				<a  class="btn btn-primary mx-1" sec:authorize="hasRole('USER')"
+ 					th:href="@{'/user/' + ${objN} + '/{id}' (id=*{id})}">
+ 						Dettagli
+				</a> 
 
-				<a th:href="@{'/admin/' + ${objN} + '/edit/{id}'(id=*{id})}" class="btn btn-success mx-1">Modifica</a>
+				<a sec:authorize="hasRole('ADMIN')" class="btn btn-success mx-1"
+					th:href="@{'/admin/' + ${objN} + '/edit/{id}'(id=*{id})}">
+						Modifica
+				</a>
 		
-				<a th:href="@{'/admin/' + ${objN} + '/delete/{id}'(id=*{id})}" class="btn btn-danger mx-1">Elimina</a>
+				<a sec:authorize="hasRole('ADMIN')" class="btn btn-danger mx-1"
+ 					th:href="@{'/admin/' + ${objN} + '/delete/{id}'(id=*{id})}" >
+ 						Elimina
+				</a>
 			</td>
 		
 		</tr>
@@ -207,7 +220,7 @@
 	</div>
 	
 	<!-- Buttons -->
-	<span class="m-auto">
+	<span class="m-auto" sec:authorize="hasRole('ADMIN')">
 		<a th:href="@{'/admin/' + ${element} + '/edit/{id}' (id=*{id})}" 
 		   class=" btn-primary btn mx-2">Modifica</a>			
 		   	
@@ -221,7 +234,8 @@
 <!-------------------- Main new-edit Form ------------------------>
 
 
-<form th:fragment="formM(obj, promo, ingredients, element, edit)"
+<form sec:authorize="hasRole('ADMIN')" 
+	  th:fragment="formM(obj, promo, ingredients, element, edit)"
       th:action="'/admin/' + ${element} + '/' + ${edit}" 
 	  method="POST" 
   	  class="card p-5 my-5 w-50 m-auto">
