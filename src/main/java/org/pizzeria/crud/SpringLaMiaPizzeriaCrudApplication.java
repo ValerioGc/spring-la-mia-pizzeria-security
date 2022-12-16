@@ -205,6 +205,7 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 		
 		Role user = new Role("USER");
 		Role admin = new Role("ADMIN");
+
 		roleService.save(user);
 		roleService.save(admin);
 		

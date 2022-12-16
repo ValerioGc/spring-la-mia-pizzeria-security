@@ -27,13 +27,13 @@
 						<li class="list-group-item">
 							<a href="/home">Home</a>
 						</li>
-						<li class="list-group-item">	
+						<li sec:authorize="hasAuthority('USER')" class="list-group-item">	
 							<a href="/user">User | user - pwd</a>
 						</li>
-						<li class="list-group-item">	
+						<li sec:authorize="hasAuthority('ADMIN')" class="list-group-item">	
 							<a href="/admin">Admin | admin - pwd2</a>
 						</li>
-						<li class="list-group-item">
+						<li class="list-group-item" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
 							<a href="/useradmin">UserAdmin, | userAdmin - pwd3</a>
 						</li>
 					</ul>

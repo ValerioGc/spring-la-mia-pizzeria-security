@@ -81,25 +81,18 @@
 	
 <!------------------- Header pagina ------------------------->
 
-<header th:fragment="header()" class="headerApp">
-	<h1 class="text-primary p-3 title-header d-inline-block w-50">Pizzeria Java</h1>
-
+<header th:fragment="header()" class="headerApp d-flex align-items-center justify-content-between px-2">
+	
+	<h1 class="text-primary p-3 title-header">Pizzeria Java</h1>
 		
-	<ul class="bg-light list-unstyled -auto d-inline-block text-center w-25 p-2">
-		<li>
-			<a sec:authorize="!isAuthenticated()" href="/login" class="">Login</a>
-			<a sec:authorize="isAuthenticated()" href="/logout" class="">LogOut</a>
-		</li>
-		<li>
-			<span sec:authorize="!isAuthenticated()">utente non autenticato.</span>
-			<span sec:authorize="isAuthenticated()">
-				utente autenticato come 
-				<span sec:authentication="name"></span>
-			</span>
-		</li>
-	</ul>
-
-	<hr/>
+	<div class="bg-light list-unstyled -auto  p-2">
+		<i class="fa-solid fa-user mx-2"></i>
+		<a sec:authorize="!isAuthenticated()" href="/login" class="">Login</a>
+		<span sec:authorize="isAuthenticated()">
+		 	<span sec:authentication="name" class="text-capitalize"></span> |
+	  		<a href="/logout" class="link-unstyled"> Logout</a>
+		</span>
+	</div>
 </header>
 			
 
